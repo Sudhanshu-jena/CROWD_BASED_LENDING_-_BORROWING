@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Account deletion Form</title>
+	<link rel="stylesheet" href="style.css">
+<style>
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	font-family: sans-serif;
+}
+.container{
+	position: relative;
+	margin-top: 100px;
+	width: 570px;
+	height: auto;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+.label{
+	padding: 20px 10px;
+	font-size: 35px;
+	font-weight: bold;
+	color: black;
+        
+}
+
+.login_form{
+	padding: 20px 40px;
+}
+.login_form .font{
+	font-size: 18px;
+	color: #130f40;
+	margin: 5px 0;
+}
+.login_form input{
+       margin-top:-20px;
+       margin-left:100px;
+	height: 25px;
+	width: 350px;
+	padding: 5px 0px;
+	font-size: 18px;
+	outline: none;
+	border: 1px solid silver;
+}
+.login_form .font2{
+	
+}
+.login_form button{
+	margin: 45px 0 30px 120px;
+	height: 45px;
+	width: 140px;
+	font-size: 20px;
+	color: black;
+	outline: none;
+	cursor: pointer;
+	font-weight: bold;
+	text-align:center;
+	border: 2px solid black;
+  border-radius: 5px;
+	transition: .5s;
+        background-color:blue;
+}
+
+.login_form #email_error,
+.login_form #pass_error{
+	margin-top: 5px;
+	width: 345px;
+	font-size: 18px;
+	color: #C62828;
+	
+	text-align: center;
+	padding: 5px 8px;
+	border: 2px solid black;
+  border-radius: 5px;
+	display: none;
+}
+label{
+margin-top: 30px;
+}
+
+</style>
+</head>
+<body>
+	<div class="container" style="background-image:url('formsbg.jpg');">
+		<h1 class="label">Account Deletion form</h1>
+		<form class="login_form" action="home.html" method="post" name="form" onsubmit="return validated()">
+			<div class="font"></div>
+                         <label  class="lab" for="name">Name:</label>
+			<input autocomplete="off" type="text"  name="name"  required>
+			<div id="email_error">Please fill up your name</div>
+			<div class="font font2"></div>
+                        <label class="lab" for="userid">User id:</label>
+			<input type="text"   name="userid" required>
+			<div id="pass_error">Please fill up your Userid</div>
+<div class="font font3"></div>
+                        <label class="lab" for="email">Email:</label>
+			<input autocomplete="off" type="email"   name="email"  required>
+			<div id="email_error">Please fill up your Email</div>
+<div class="font font4"></div>
+<label class="lab" for="reqaccdele">Request of<br>acc deletion:</label>
+<input type="text"   name="reqaccdel" required>
+			<div id="pass_error">Please fill up your Request</div>
+			<button type="submit">Submit</button>
+
+		</form>
+	</div>	
+
+	<script src="valid.js">
+var text = document.forms['form']['text'];
+var password = document.forms['form']['password'];
+
+var email_error = document.getElementById('email_error');
+var pass_error = document.getElementById('pass_error');
+
+text.addEventListener('textInput', email_Verify);
+password.addEventListener('textInput', pass_Verify);
+
+function validated(){
+	if (text.value.length < 9) {
+		text.style.border = "1px solid red";
+		email_error.style.display = "block";
+		text.focus();
+		return false;
+	}
+	if (password.value.length < 6) {
+		password.style.border = "1px solid red";
+		pass_error.style.display = "block";
+		password.focus();
+		return false;
+	}
+
+}
+function text_Verify(){
+	if (text.value.length >= 8) {
+		email.style.border = "1px solid silver";
+		email_error.style.display = "none";
+		return true;
+	}
+}
+function pass_Verify(){
+	if (password.value.length >= 5) {
+		password.style.border = "1px solid silver";
+		pass_error.style.display = "none";
+		return true;
+	}
+}
+
+
+</script>
+</body>
+</html>

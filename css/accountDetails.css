@@ -1,0 +1,134 @@
+*{
+    margin: 0; padding:0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+  
+
+.site-header {
+    width: 100%;
+    height: 100vh;
+    background: #0f8a9d;
+    background: linear-gradient(57deg , #098875, #0c326b ); 
+    
+    
+    
+
+}
+
+
+nav{
+    width: 100%; height: 100px;
+    background-color:  #0f8a9d;
+    display: flex; color: white;
+    border-radius: 20px;
+    position: fixed;
+    
+    
+    
+}
+
+.logo{
+    width: 50%;
+    height: 100px;
+}
+
+.logo h1{
+    line-height: 100px;
+    padding-left: 50px;
+    padding-top: 10px;
+    
+}
+
+.menu{
+    width: 50%; height: 100px;
+    
+}
+
+.menu ul{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 300px;
+    justify-content: space-around;
+    align-items:  center;
+}
+
+.menu ul li{
+    list-style: none;
+    font-size: 12px;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+}
+.menu ul li button{
+    background: linear-gradient(57deg, #00C6A7, #1E4D92 ); 
+    
+    font-size: 13px;
+    font-weight: 400;
+    color: white;
+    text-transform: uppercase;  
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 25px;
+    
+}
+.menu ul li button:hover{
+    background: linear-gradient(57deg, #1E4D92, #00C6A7 );   
+}
+
+
+section{ display: flex; }
+
+
+
+
+
+.container{
+	position: relative;
+	margin-top: 120px;
+    margin-left: 32%;
+	width: 570px;
+	height: auto;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+
+.login_form{
+	padding: 20px 40px;
+}
+.login_form .font{
+	font-size: 18px;
+	color: #130f40;
+	margin: 5px 0;
+}
+.login_form input{
+       margin-top:-20px;
+       margin-left:100px;
+	height: 25px;
+	width: 350px;
+	padding: 10px 0px;
+	font-size: 18px;
+	outline: none;
+	border: 1px solid silver;
+}
+
+.login_form button{
+	margin: 45px 0 40px 120px;
+	height: 45px;
+	width: 140px;
+	font-size: 20px;
+	color: black;
+	outline: none;
+	cursor: pointer;
+	font-weight: bold;
+	text-align:center;
+	border: 2px solid black;
+  border-radius: 5px;
+	transition: .5s;
+        background-color:blue;
+}
+
+

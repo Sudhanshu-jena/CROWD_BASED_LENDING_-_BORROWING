@@ -1,0 +1,120 @@
+*{
+    margin: 0; padding:0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+  
+
+.site-header {
+    width: 100%;
+    height: 100vh;
+    background: #0f8a9d;
+    background: linear-gradient(57deg , #098875, #0c326b );  
+    
+    
+    
+
+}
+
+
+nav{
+    width: 100%; height: 100px;
+    background-color:  #0f8a9d;
+    display: flex; color: white;
+    border-radius: 20px;
+    position: fixed;
+    
+    
+    
+}
+
+.logo{
+    width: 50%;
+    height: 100px;
+}
+
+.logo h1{
+    line-height: 100px;
+    padding-left: 50px;
+    padding-top: 10px;
+    
+}
+
+.menu{
+    width: 50%; height: 100px;
+    
+}
+
+.menu ul{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:  center;
+}
+
+.menu ul li{
+    list-style: none;
+    font-size: 12px;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+}
+.menu ul li button{
+    background: linear-gradient(57deg, #00C6A7, #1E4D92 ); 
+    
+    font-size: 13px;
+    font-weight: 400;
+    color: white;
+    text-transform: uppercase;  
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 25px;
+    
+}
+.menu ul li button:hover{
+    background: linear-gradient(57deg, #1E4D92, #00C6A7 );   
+}
+
+
+section{ display: flex; }
+
+
+
+.rightside{ 
+    padding-top: 15%;
+    padding-left: 10%;
+    color: white; 
+    text-align: center; 
+    
+}
+
+.leftside{ 
+    padding-top: 15%;
+    padding-left: 30%;
+    color: white; 
+    text-align: center; 
+    
+}
+
+.rightside h1{ text-align: center;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: 900;
+    text-transform: uppercase; } 
+
+.div1{
+    
+        background-color: white;
+        color: black;
+        width: auto;
+        height: auto;
+        border: 3px solid black;
+        padding: 50px;
+        margin: auto;
+        text-align: center;
+      
+}
+
+
