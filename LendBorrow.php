@@ -10,6 +10,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <title>CROWD BASED LENDING & BORROWING</title>
     <link rel="stylesheet" type="text/css" href="css/accountDetails.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -26,7 +29,7 @@
         <div class="menu"> 
          <ul>
          <li><a href="newprojectform.php"><button>New Project</button></a></li>
-           <li><a href="homepage.html"><button>Home</button></a></li>
+           <li><a href="homepage.php"><button>Home</button></a></li>
 		   <li><a href="Borrow.php"><button>Borrow</button></a></li>
           
           
@@ -35,10 +38,10 @@
        </nav>
        <section>
        <div class="rightside"> 
-    
-    <div id="main-wrapper" >
+       <!-- margin-top: 25%; -->
+    <div id="main-wrapper" class="card" style="width: 40rem; margin-top: 15rem; margin-left: 30rem;">
     <center><h2>Project Information</h2></center></br></br>
-      <center><h3>Once confirm your project ID to view</h3></center></br></br>
+      
       <form action="LendBorrow.php" method="post">
         
         <div class="inner_container">
@@ -68,14 +71,14 @@
         
           
           
-          <button name="Confirm" class="confirm_btn" type="submit">Confirm</button>
+          <button name="Confirm" class="btn btn-primary" type="submit">Confirm</button>
            
           
           
           
           
           
-        </div>
+        </div></br>
           </form>
   
           <?php
@@ -89,27 +92,32 @@
                   
           
                   try{
-                  $sql = "SELECT  `Description` FROM `project` WHERE `Category` = :Category";
+                  $sql = "SELECT  `Description` FROM `project` WHERE `Category` = :Category and `Region` = :Region";
                   // use exec() because no results are returned
                   $stmt = $conn->prepare($sql);
-                  $stmt->execute(array(":Category"=>$Category));
+                  $stmt->execute(array(":Category"=>$Category,"Region"=>$Region));
                   
               
                   foreach($stmt as $row){
-                      echo '<table width="70%" border="2" cellpadding="5" cellspacing="5">
-                      <tr>
-                          <th>Description</th>
-                          
-                          
-                      </tr>';
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead class="thead-dark">
+                      <tr class="table-dark">
                       
-                          echo '<tr>
+                          <th >Description</th>
+                          
+                          
+                      </tr>
+                      </thead>';
+                      
+                          echo '<tbody>
+                          <tr>
                           <th>'.$row ["Description"].'</th>
-                          <th><a href="paymentpage.php"><button>Lend</button></a></th>
+                          <th><a href="paymentpage.php" ><button class="btn btn-primary mt-2">Lend</button></a></th>
                           
                       
                           
-                      </tr>';
+                      </tr>
+                      </tbody>';
                       echo '</table>';
   
   
@@ -130,7 +138,12 @@
           
           
       ?>
-         
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script> 
          
          
          

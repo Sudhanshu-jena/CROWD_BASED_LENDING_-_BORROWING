@@ -2,6 +2,9 @@
 <html>
 <head>
  <title>CROWD BASED LENDING & BORROWING</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
  <link rel="stylesheet" type="text/css" href="css/borrow.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
@@ -44,12 +47,13 @@ if($link === false){
 }
  
 // Attempt select query execution
-$sql = "SELECT * FROM project";
+$sql = "SELECT * FROM project where `User_ID` = project.User_ID";
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
-        echo "<table>";
+        foreach($result as $row){
+        echo "<table class='table'>";
 		while($row = mysqli_fetch_array($result)){
-			echo "<tr>";
+			echo "<tr class='table-dark'>";
 			
                 echo "<th>Name</th>";
 				echo "<td>" . $row['Name'] . "</td>";
@@ -81,7 +85,7 @@ if($result = mysqli_query($link, $sql)){
 			
         
         echo "</table>";
-		
+    }
         // Free result set
         mysqli_free_result($result);
     } else{
@@ -94,6 +98,12 @@ if($result = mysqli_query($link, $sql)){
 // Close connection
 mysqli_close($link);
 ?>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script> 
    </div></br></br>
    <a href="repaymentpage.php"><button class="button1">Repay</button></a>
    

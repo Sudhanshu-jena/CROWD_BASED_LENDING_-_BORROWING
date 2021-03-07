@@ -1,4 +1,12 @@
-
+<?php
+session_start();
+include_once("dbconfig/config.php");
+if($_SESSION["User_ID"]==true){
+    
+}else{
+    header('location:index.html');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +28,7 @@
   <div class="menu"> 
    <ul>
      
-    <li ><a href="homepage.html"><button type="button">Home</button></a></li>
+    <li ><a href="homepage.php"><button type="button">Home</button></a></li>
     <li ><a href="accountDetails.php"><button type="button">Update Account</button></a></li>
 	<li ><a href="logout.php"><button type="button">Logout</button></a></li>
     
@@ -40,14 +48,16 @@ $link = mysqli_connect("localhost", "root", "", "crowd_based");
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
- 
+$User_ID = $_SESSION['User_ID'];
+
 // Attempt select query execution
-$sql = "SELECT * FROM account";
+$sql= "SELECT * FROM account ";
+
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
         echo "<table>";
 		while($row = mysqli_fetch_array($result)){
-			echo "<tr>";
+			echo "<tr class='table-dark'>";
 			
                 echo "<th>Name</th>";
 				echo "<td>" . $row['Name'] . "</td>";

@@ -3,40 +3,7 @@
 	include_once("dbconfig/config.php");
 	
 ?>
-<?php
 
-// php delete data in mysql database using PDO
-
-if(isset($_POST['Create']))
-{
-    try {
-        $pdoConnect = new PDO("mysql:host=localhost;dbname=crowd_based","root","");
-    } catch (PDOException $exc) {
-        echo $exc->getMessage();
-        exit();
-    }
-    
-     // get id to delete
-     $User_ID = $_POST['User_ID'];
-    
-     // mysql delete query 
-
-    $pdoQuery = "DELETE FROM `project` WHERE `User_ID` = :User_ID";
-    
-    $pdoResult = $pdoConnect->prepare($pdoQuery);
-    
-    $pdoExec = $pdoResult->execute(array(":User_ID"=>$User_ID));
-    
-    if($pdoExec)
-    {
-        
-    }else{
-        
-    }
-
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +25,7 @@ if(isset($_POST['Create']))
         </div>
         <div class="menu"> 
          <ul>
-           <li><a href="homepage.html"><button>Home</button></a></li>
+           <li><a href="homepage.php"><button>Home</button></a></li>
 		   <li><a href="Borrow.php"><button>Borrow</button></a></li>
           
           
@@ -84,6 +51,7 @@ if(isset($_POST['Create']))
 			<div class="font font4"></div>
             <label class="lab" for="Category">Category:</label>
 			<input type="text"   name="Category" required>
+            
 			
             <div class="font font5"></div>
             <label class="lab" for="Region">Region:</label>

@@ -1,3 +1,12 @@
+<?php
+session_start();
+include_once("dbconfig/config.php");
+if($_SESSION["User_ID"]==true){
+    
+}else{
+    header('location:index.html');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +35,7 @@
   </div>
  </nav>
  <section>
+     <%- include('../partials/navbar')%>
   
   <div class="rightside"> 
    <h1> CROWD BASED </br>LENDING & BORROWING PLATFORM</h1></br></br></br>

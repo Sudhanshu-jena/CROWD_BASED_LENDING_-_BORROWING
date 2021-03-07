@@ -58,7 +58,7 @@ if(isset($_POST['Update']))
         </div>
         <div class="menu"> 
          <ul>
-           <li><a href="homepage.html"><button>Home</button></a></li>
+           <li><a href="homepage.php"><button>Home</button></a></li>
           
           
          </ul>

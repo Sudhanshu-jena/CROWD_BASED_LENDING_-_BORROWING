@@ -8,7 +8,7 @@ class config{
 
         try {
             $conn = new PDO("mysql:host=$servername;dbname=crowd_based", $username, $password);
-  // set the PDO error mode to exception
+  // set the PDO error mode to exception Dare@devil007
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
            
             } catch(PDOException $e) {

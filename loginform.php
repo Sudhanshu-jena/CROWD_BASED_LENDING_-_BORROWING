@@ -50,7 +50,7 @@
 					$_SESSION['User_ID'] = $User_ID;
 					$_SESSION['password'] = $password;
 					
-					header( "Location: homepage.html");
+					header( "Location: homepage.php");
 					}
 					else
 					{
