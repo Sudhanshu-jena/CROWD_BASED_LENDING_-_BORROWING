@@ -3,14 +3,16 @@
     font-family: 'Montserrat', sans-serif;
     
 }
-
+body{
+    background:#0c326b ;
+}  
   
 
 .site-header {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: #0f8a9d;
-    background: linear-gradient(57deg , #098875, #0c326b ); 
+    background:#0c326b ; 
     
     
     
@@ -94,7 +96,20 @@ section{ display: flex; }
     color: black;
     font-size: 20px;
     font-weight: 900;
-    text-transform: uppercase; } 
+    text-transform: uppercase; 
+} 
+    .div1{
+    
+        background-color: white;
+        color: black;
+        width: auto;
+        height: auto;
+        border: 3px solid black;
+        padding: 50px;
+        margin: auto;
+        text-align: center;
+      
+}
 .button1 {
         border: none;
         color: white;
@@ -107,17 +122,6 @@ section{ display: flex; }
         margin: 4px 2px;
         cursor: pointer;
       }
-.div1{
-    
-        background-color: white;
-        color: black;
-        width: auto;
-        height: auto;
-        border: 3px solid black;
-        padding: 50px;
-        margin: auto;
-        text-align: center;
-      
-}
+
 
 
