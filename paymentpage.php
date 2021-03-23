@@ -7,34 +7,7 @@
 
 // php delete data in mysql database using PDO
 
-if(isset($_POST['Create']))
-{
-    try {
-        $pdoConnect = new PDO("mysql:host=localhost;dbname=crowd_based","root","");
-    } catch (PDOException $exc) {
-        echo $exc->getMessage();
-        exit();
-    }
-    
-     // get id to delete
-     $Lend_Account_No = $_POST['Lend_Account_No'];
-    
-     // mysql delete query 
 
-    $pdoQuery = "DELETE FROM `project` WHERE `Lend_Account_No` = :Lend_Account_No";
-    
-    $pdoResult = $pdoConnect->prepare($pdoQuery);
-    
-    $pdoExec = $pdoResult->execute(array(":Lend_Account_No"=>$Lend_Account_No));
-    
-    if($pdoExec)
-    {
-        
-    }else{
-        
-    }
-
-}
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +31,8 @@ if(isset($_POST['Create']))
         </div>
         <div class="menu"> 
          <ul>
-           <li><a href="homepage.html"><button>Home</button></a></li>
+         <li ><a href="#"><button type="button">Welcome <?php echo $_SESSION['User_ID']; ?></button></a></li>
+           <li><a href="homepage.php"><button>Home</button></a></li>
 		   <li><a href="Borrow.php"><button>Borrow</button></a></li>
           
           
@@ -74,12 +48,10 @@ if(isset($_POST['Create']))
 			<input autocomplete="off" type="text"  name="Name"  required>
 			
 			<div class="font font6"></div>
-            <label class="lab" for="Email">Email:</label>
-			<input type="Email"   name="Email" required>
+            <label class="lab" for="Project_ID">Project ID:</label>
+			<input type="text"   name="Project_ID" required>
 
-			<div class="font font6"></div>
-            <label class="lab" for="Address">Address:</label>
-			<input type="text"   name="Address" required>
+			
 
 			<div class="font font5"></div>
             <label class="lab" for="Region">Region:</label>
@@ -123,17 +95,17 @@ if(isset($_POST['Create']))
 				$Category=$_POST['Category'];
 				$Region=$_POST['Region'];
                 $Amount=$_POST['Amount'];
-                $Email=$_POST['Email'];
+                $Project_ID=$_POST['Project_ID'];
                 $Borrow_Account_No=$_POST['Borrow_Account_No'];
-                $Address=$_POST['Address'];
+                
                 try{
-                $sql = "INSERT INTO pay (Name,Lend_Account_No,Category,Region,Amount,Email,Borrow_Account_No,Address)
-                VALUES (:Name, :Lend_Account_No, :Category, :Region, :Amount, :Email, :Borrow_Account_No, :Address)";
+                $sql = "INSERT INTO pay (Name,Lend_Account_No,Category,Region,Amount,Project_ID,Borrow_Account_No)
+                VALUES (:Name, :Lend_Account_No, :Category, :Region, :Amount, :Project_ID, :Borrow_Account_No)";
                 // use exec() because no results are returned
                 $stmt = $conn->prepare($sql);
                 $stmt->execute(['Name'=>$Name,
                 'Lend_Account_No'=>$Lend_Account_No,'Category'=>$Category,'Region'=>$Region, 
-                'Amount'=>$Amount, 'Email'=>$Email, 'Borrow_Account_No'=>$Borrow_Account_No, 'Address'=>$Address,]);
+                'Amount'=>$Amount, 'Project_ID'=>$Project_ID, 'Borrow_Account_No'=>$Borrow_Account_No]);
                 echo '<script type="text/javascript">alert("Payment successfully")</script>';
                 
             }

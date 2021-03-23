@@ -26,7 +26,7 @@ if($_SESSION["User_ID"]==true){
   </div>
   <div class="menu"> 
    <ul>
-     
+    <li ><a href="#"><button type="button">Welcome <?php echo $_SESSION['User_ID']; ?></button></a></li>
     <li ><a href="LendBorrow.php"><button type="button">Lend/Borrow</button></a></li>
     <li ><a href="accountDetails.php"><button type="button">Update Account</button></a></li>
 	<li ><a href="logout.php"><button type="button">Logout</button></a></li>

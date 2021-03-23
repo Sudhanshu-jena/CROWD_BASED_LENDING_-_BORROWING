@@ -14,7 +14,7 @@
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <title>CROWD BASED LENDING & BORROWING</title>
-    <link rel="stylesheet" type="text/css" href="css/accountDetails.css">
+    <link rel="stylesheet" type="text/css" href="css/lendBorrow.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 <script src="https://kit.fontawesome.com/a076d05399.js" ></script>
@@ -28,6 +28,7 @@
         </div>
         <div class="menu"> 
          <ul>
+         <li ><a href="#"><button type="button">Welcome <?php echo $_SESSION['User_ID']; ?></button></a></li>
          <li><a href="newprojectform.php"><button>New Project</button></a></li>
            <li><a href="homepage.php"><button>Home</button></a></li>
 		   <li><a href="Borrow.php"><button>Borrow</button></a></li>
@@ -92,7 +93,7 @@
                   
           
                   try{
-                  $sql = "SELECT  `Description` FROM `project` WHERE `Category` = :Category and `Region` = :Region";
+                  $sql = "SELECT  * FROM `project` WHERE `Category` = :Category and `Region` = :Region";
                   // use exec() because no results are returned
                   $stmt = $conn->prepare($sql);
                   $stmt->execute(array(":Category"=>$Category,"Region"=>$Region));
@@ -104,6 +105,7 @@
                       <tr class="table-dark">
                       
                           <th >Description</th>
+                          <th >Amount Required</th>
                           
                           
                       </tr>
@@ -112,11 +114,13 @@
                           echo '<tbody>
                           <tr>
                           <th>'.$row ["Description"].'</th>
-                          <th><a href="paymentpage.php" ><button class="btn btn-primary mt-2">Lend</button></a></th>
+                          <th>'.$row ["Amount_Pending"].' OUT OF '.$row ["Amount_Required"]. '</th>
+                          
                           
                       
                           
                       </tr>
+                      <th><a href="paymentpage.php" ><button class="btn btn-primary mt-2">Lend</button></a></th>
                       </tbody>';
                       echo '</table>';
   

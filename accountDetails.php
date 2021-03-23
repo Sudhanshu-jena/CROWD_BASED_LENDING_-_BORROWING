@@ -58,6 +58,7 @@ if(isset($_POST['Update']))
         </div>
         <div class="menu"> 
          <ul>
+         <li ><a href="#"><button type="button">Welcome <?php echo $_SESSION['User_ID']; ?></button></a></li>
            <li><a href="homepage.php"><button>Home</button></a></li>
           
           

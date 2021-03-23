@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2021 at 06:43 AM
+-- Generation Time: Mar 23, 2021 at 07:00 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -49,6 +49,26 @@ INSERT INTO `account` (`Name`, `User_ID`, `Account_No`, `IFSC_Code`, `Bank_Name`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `emi`
+--
+
+CREATE TABLE `emi` (
+  `Project_ID` varchar(30) NOT NULL,
+  `Borrow_Account_No` varchar(30) NOT NULL,
+  `EMI_Payed_Amount` int(11) NOT NULL,
+  `EMI_Required_Amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `emi`
+--
+
+INSERT INTO `emi` (`Project_ID`, `Borrow_Account_No`, `EMI_Payed_Amount`, `EMI_Required_Amount`) VALUES
+('DBMS-1', '123456789', 9400, 100);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `enquiry`
 --
 
@@ -59,14 +79,6 @@ CREATE TABLE `enquiry` (
   `Message` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `enquiry`
---
-
-INSERT INTO `enquiry` (`Name`, `Email`, `Phone`, `Message`) VALUES
-('Sudhanshu Jena', 'jackricherr007@gmail.com', '09730620905', ' Nothing...'),
-('Sudhanshu Jena', 'jackricherr007@gmail.com', '09730620905', ' Nothing...');
-
 -- --------------------------------------------------------
 
 --
@@ -75,8 +87,7 @@ INSERT INTO `enquiry` (`Name`, `Email`, `Phone`, `Message`) VALUES
 
 CREATE TABLE `pay` (
   `Name` varchar(30) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `Address` varchar(30) NOT NULL,
+  `Project_ID` varchar(30) NOT NULL,
   `Region` varchar(15) NOT NULL,
   `Category` varchar(15) NOT NULL,
   `Lend_Account_No` varchar(30) NOT NULL,
@@ -88,8 +99,45 @@ CREATE TABLE `pay` (
 -- Dumping data for table `pay`
 --
 
-INSERT INTO `pay` (`Name`, `Email`, `Address`, `Region`, `Category`, `Lend_Account_No`, `Borrow_Account_No`, `Amount`) VALUES
-('Sudhanshu Jena', 'jackricherr007@gmail.com', 'Bhakti Park', 'Maharashtra', 'DBMS_PROFESSOR', '12345654321', '1234', 4567);
+INSERT INTO `pay` (`Name`, `Project_ID`, `Region`, `Category`, `Lend_Account_No`, `Borrow_Account_No`, `Amount`) VALUES
+('Sudhanshu', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 5500),
+('Sudhanshu ', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 2000),
+('Sudhanshu ', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 2000);
+
+--
+-- Triggers `pay`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_emi` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
+INSERT INTO emi
+SET Project_ID = NEW.Project_ID , Borrow_Account_No = NEW.Borrow_Account_No;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `panding` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
+UPDATE project
+SET Amount_Pending = Amount_Pending - NEW.Amount
+WHERE Project_ID = NEW.Project_ID;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_amount` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
+UPDATE project
+SET Amount_Gathered = Amount_Gathered + NEW.Amount
+WHERE Project_ID = NEW.Project_ID;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_emi` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
+UPDATE emi
+SET EMI_Required_Amount = EMI_Required_Amount + NEW.Amount
+WHERE Project_ID = NEW.Project_ID;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -99,23 +147,26 @@ INSERT INTO `pay` (`Name`, `Email`, `Address`, `Region`, `Category`, `Lend_Accou
 
 CREATE TABLE `project` (
   `Name` varchar(30) NOT NULL,
+  `Project_ID` varchar(30) NOT NULL,
   `User_ID` varchar(30) NOT NULL,
-  `Email` varchar(30) NOT NULL,
   `Category` varchar(15) NOT NULL,
   `Region` varchar(30) NOT NULL,
-  `Address` varchar(30) NOT NULL,
+  `Start_Date` date NOT NULL,
+  `End_Date` date NOT NULL,
   `Account_No` varchar(30) NOT NULL,
+  `Amount_Required` int(11) NOT NULL,
+  `Amount_Gathered` int(11) NOT NULL,
+  `Amount_Pending` int(11) NOT NULL,
   `Loan_Pending` text NOT NULL,
-  `Description` varchar(50) NOT NULL
+  `Description` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`Name`, `User_ID`, `Email`, `Category`, `Region`, `Address`, `Account_No`, `Loan_Pending`, `Description`) VALUES
-('Sudhanshu Jena', 'TUS3F171852', 'jackricherr007@gmail.com', 'Agriculture', 'Maharashtra', 'Bhakti Park', '123456789', 'No', 'Nice Project And Nice Project '),
-('Tejas Manjrekar', 'TUS3F171856', 'jackricherr007@gmail.com', 'Agriculture', 'Navi Mumbai', 'aaa', '123456789', 'No', 'Nice Project Nice Project ');
+INSERT INTO `project` (`Name`, `Project_ID`, `User_ID`, `Category`, `Region`, `Start_Date`, `End_Date`, `Account_No`, `Amount_Required`, `Amount_Gathered`, `Amount_Pending`, `Loan_Pending`, `Description`) VALUES
+('DBMS Project', 'DBMS-1', 'TUS3F171852', 'Agriculture', 'Mumbai', '2021-03-23', '2021-03-31', '123456789', 20000, 9500, 10500, 'No', 'Put life in perspective with some short yet sage pieces of advice. These wise and beautiful words from your favorite positive thinkers will get you in the right mindset to tackle whatever obstacles li');
 
 -- --------------------------------------------------------
 
@@ -124,15 +175,42 @@ INSERT INTO `project` (`Name`, `User_ID`, `Email`, `Category`, `Region`, `Addres
 --
 
 CREATE TABLE `repay` (
+  `User_ID` varchar(30) NOT NULL,
   `Name` varchar(30) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `Address` varchar(30) NOT NULL,
-  `Region` varchar(15) NOT NULL,
-  `Category` varchar(15) NOT NULL,
+  `Project_ID` varchar(30) NOT NULL,
   `Lend_Account_No` varchar(30) NOT NULL,
   `Borrow_Account_No` varchar(30) NOT NULL,
-  `Amount` bigint(20) NOT NULL
+  `EMI` varchar(20) NOT NULL,
+  `EMI_Instalment_No` varchar(20) NOT NULL,
+  `Amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `repay`
+--
+
+INSERT INTO `repay` (`User_ID`, `Name`, `Project_ID`, `Lend_Account_No`, `Borrow_Account_No`, `EMI`, `EMI_Instalment_No`, `Amount`) VALUES
+('TUS3F171852', 'Sudhanshu', 'DBMS-1', '12345654321', '123456789', 'No', 'One Time Payment', 9400);
+
+--
+-- Triggers `repay`
+--
+DELIMITER $$
+CREATE TRIGGER `update_emi1` AFTER INSERT ON `repay` FOR EACH ROW BEGIN
+UPDATE emi
+SET EMI_Payed_Amount = EMI_Payed_Amount + NEW.Amount
+WHERE Project_ID = NEW.Project_ID;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_emi2` AFTER INSERT ON `repay` FOR EACH ROW BEGIN
+UPDATE emi
+SET EMI_Required_Amount = EMI_Required_Amount - NEW.Amount
+WHERE Project_ID = NEW.Project_ID;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -161,14 +239,22 @@ INSERT INTO `signup` (`User_ID`, `Email`, `Password`) VALUES
 -- Indexes for table `account`
 --
 ALTER TABLE `account`
-  ADD PRIMARY KEY (`Account_No`);
+  ADD PRIMARY KEY (`Account_No`),
+  ADD KEY `User_ID` (`User_ID`);
+
+--
+-- Indexes for table `pay`
+--
+ALTER TABLE `pay`
+  ADD KEY `Project_ID` (`Project_ID`);
 
 --
 -- Indexes for table `project`
 --
 ALTER TABLE `project`
-  ADD PRIMARY KEY (`Name`),
-  ADD KEY `Account_No` (`Account_No`);
+  ADD PRIMARY KEY (`Project_ID`),
+  ADD KEY `Account_No` (`Account_No`),
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `signup`
@@ -181,10 +267,23 @@ ALTER TABLE `signup`
 --
 
 --
+-- Constraints for table `account`
+--
+ALTER TABLE `account`
+  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `signup` (`User_ID`);
+
+--
+-- Constraints for table `pay`
+--
+ALTER TABLE `pay`
+  ADD CONSTRAINT `pay_ibfk_1` FOREIGN KEY (`Project_ID`) REFERENCES `project` (`Project_ID`);
+
+--
 -- Constraints for table `project`
 --
 ALTER TABLE `project`
-  ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`Account_No`) REFERENCES `account` (`Account_No`);
+  ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`Account_No`) REFERENCES `account` (`Account_No`),
+  ADD CONSTRAINT `project_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `signup` (`User_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

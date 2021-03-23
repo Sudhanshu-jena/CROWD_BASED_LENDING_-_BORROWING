@@ -30,7 +30,7 @@ if($_SESSION["User_ID"]==true){
   </div>
   <div class="menu"> 
    <ul>
-     
+   <li ><a href="#"><button type="button">Welcome <?php echo $_SESSION['User_ID']; ?></button></a></li> 
     <li ><a href="LendBorrow.php"><button type="button">Lend/Borrow</button></a></li>
     <li ><a href="accountDetails.php"><button type="button">Update Account</button></a></li>
 	<li ><a href="logout.php"><button type="button">Logout</button></a></li>
@@ -79,7 +79,16 @@ if($_SESSION["User_ID"]==true){
                       
                           
                       echo '</table>';
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead>
+                      <tr>
                       
+                          <th >Project Name:</th>
+
+                          <th>'.$row ["Name"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
                       echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
                       <thead>
                       <tr>
@@ -115,13 +124,57 @@ if($_SESSION["User_ID"]==true){
                           
                       echo '</table>';
                       
+                      
+
                       echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
                       <thead >
                       <tr >
                       
-                          <th >Description:</th>
+                          <th >Borrowing Start Date:</th>
 
-                          <th>'.$row ["Description"].'</th>
+                          <th>'.$row ["Start_Date"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Borrowing End Date:</th>
+
+                          <th>'.$row ["End_Date"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Amount Required:</th>
+
+                          <th>'.$row ["Amount_Required"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Amount Gathered:</th>
+
+                          <th>'.$row ["Amount_Gathered"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Amount Pending:</th>
+
+                          <th>'.$row ["Amount_Pending"].'</th>
                       </tr>
                       </thead>';
                       echo '</table>';
