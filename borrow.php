@@ -19,6 +19,8 @@ if($_SESSION["User_ID"]==true){
 
 <script src="https://kit.fontawesome.com/a076d05399.js" ></script>
 
+
+
 </head>
 <body>
 
@@ -38,7 +40,7 @@ if($_SESSION["User_ID"]==true){
    </ul>
   </div>
  </nav>
- <section>
+ <section class="d-flex justify-content-center">
   
   <div class="rightside"> 
   <a href="newprojectform.php"><button class="button1">Create a new project</button></a></br></br>

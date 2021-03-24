@@ -5,6 +5,7 @@
 }
 body{
     background:#0c326b ;
+    
 }  
   
 
@@ -86,8 +87,9 @@ section{ display: flex; }
 
 .rightside{ 
     padding-top: 15%;
-    padding-left: 15%;
+    
     color: white; 
+    
     text-align: center; 
     
 }

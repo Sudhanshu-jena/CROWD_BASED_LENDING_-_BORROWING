@@ -91,15 +91,21 @@
                   $Category=$_POST['Category'];
                   $Region=$_POST['Region'];
                   
+                  
           
                   try{
                   $sql = "SELECT  * FROM `project` WHERE `Category` = :Category and `Region` = :Region";
                   // use exec() because no results are returned
                   $stmt = $conn->prepare($sql);
-                  $stmt->execute(array(":Category"=>$Category,"Region"=>$Region));
+                  $stmt->execute(array(":Category"=>$Category,":Region"=>$Region));
                   
               
                   foreach($stmt as $row){
+                    $Required = $row ["Amount_Required"];
+                    $Gathered = $row ["Amount_Gathered"];
+                    $Pending = $row ["Amount_Pending"];
+                    $persent = ($Pending/$Required)*100;
+                    
                       echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
                       <thead class="thead-dark">
                       <tr class="table-dark">
@@ -114,12 +120,20 @@
                           echo '<tbody>
                           <tr>
                           <th>'.$row ["Description"].'</th>
-                          <th>'.$row ["Amount_Pending"].' OUT OF '.$row ["Amount_Required"]. '</th>
+                          <th>'.$row ["Amount_Pending"].' OUT OF '.$row ["Amount_Required"].'</th>
                           
                           
                       
                           
                       </tr>
+                      <th>
+                      <label><b>Progress of amount collected</b></label>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow='.$Gathered.' aria-valuemin="0" aria-valuemax='.$Required.' style="width: '.$persent.'%">
+                            '.$persent.' %
+                            </div>
+                          </div>
+                        </div></th>
                       <th><a href="paymentpage.php" ><button class="btn btn-primary mt-2">Lend</button></a></th>
                       </tbody>';
                       echo '</table>';
