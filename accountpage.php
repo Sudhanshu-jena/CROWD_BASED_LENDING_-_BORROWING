@@ -448,6 +448,196 @@ if($_SESSION["User_ID"]==true){
 
 
 </div>
+<div  class=""> 
+  <div class="div1">
+  <form >
+        
+        <div class="inner_container">
+        
+          
+          <label><b>Loan Details</b></label>
+       </br>
+          </form></br>
+  <?php
+  
+  
+  
+          $conn = config::conectphp();
+                  $User_ID=$_SESSION['User_ID'];
+                  
+                  
+          
+                  try{
+                  $sql = "SELECT  * FROM `repay` WHERE `User_ID` = :User_ID";
+                  // use exec() because no results are returned 
+                  $stmt = $conn->prepare($sql);
+                  $stmt->execute(array(":User_ID"=>$User_ID));
+                  
+              
+                  foreach($stmt as $row){
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead class="thead-dark">
+                      <tr class="table-dark">
+                      
+                          <th >Project ID:</th>
+
+                          <th>'.$row ["Project_ID"].'</th>
+                      </tr>
+                      </thead>';
+                          
+                          
+                      
+                          
+                      
+                      
+                          
+                      echo '</table>';
+                      
+                     
+                      
+                     
+
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Amount payed:</th>
+
+                          <th>'.$row ["Amount"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+
+                     
+  
+                      }
+                      
+                  
+          
+                  
+                  
+                  }
+                  catch(PDOException $e){
+  
+                  }
+              
+              
+          
+          
+          
+          
+      ?>
+      
+  
+      
+  <?php
+  
+  
+  
+          $conn = config::conectphp();
+                  $User_ID=$_SESSION['User_ID'];
+                  
+                  
+          
+                  try{
+                  
+                  $sql = "SELECT *  FROM `Project` WHERE `User_ID` = :User_ID";
+                  // use exec() because no results are returned 
+                  $stmt = $conn->prepare($sql);
+                  $stmt->execute(array(":User_ID"=>$User_ID));
+                  
+              
+                  foreach($stmt as $row){
+                     
+                      echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                      <thead >
+                      <tr >
+                      
+                          <th >Amount to Repay:</th>
+
+                          <th>'.$row ["Amount_Gathered"].'</th>
+                      </tr>
+                      </thead>';
+                      echo '</table>';
+
+                      }
+                 
+                  }
+                  catch(PDOException $e){
+  
+                  }
+              
+      
+      ?>
+      <form >
+        
+        <div class="inner_container">
+        
+          
+          <label><b>All Lender's Details</b></label>
+       </br>
+          </form></br>
+      <?php
+  
+  
+  
+  $conn = config::conectphp();
+          $User_ID=$_SESSION['User_ID'];
+          
+          
+  
+          try{
+          
+          $sql = "SELECT * FROM `pay` AS rp LEFT JOIN `project` AS p ON rp.Project_ID=p.Project_ID WHERE `User_ID` = :User_ID";
+          // use exec() because no results are returned 
+          $stmt = $conn->prepare($sql);
+          $stmt->execute(array(":User_ID"=>$User_ID));
+          
+      
+          foreach($stmt as $row){
+             
+            echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+            <thead >
+            <tr>
+            
+                <th >Lenders Account No:</th>
+
+                <th>'.$row ["Lend_Account_No"].'</th>
+            </tr>
+            </thead>';
+              
+            echo '</table>';
+            echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+            <thead >
+            <tr>
+            
+                <th >Amount Payed:</th>
+
+                <th>'.$row ["Amount"].'</th>
+            </tr>
+            </thead>';
+              
+            echo '</table>';
+
+             
+
+              }
+         
+          }
+          catch(PDOException $e){
+
+          }
+      
+      
+  
+  
+  
+  
+?>
+  </div> 
+
+
+</div>
     
     
     

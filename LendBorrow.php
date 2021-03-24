@@ -104,7 +104,7 @@
                     $Required = $row ["Amount_Required"];
                     $Gathered = $row ["Amount_Gathered"];
                     $Pending = $row ["Amount_Pending"];
-                    $persent = ($Pending/$Required)*100;
+                    $persent = ($Gathered/$Required)*100;
                     
                       echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
                       <thead class="thead-dark">

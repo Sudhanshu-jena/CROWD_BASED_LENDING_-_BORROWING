@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2021 at 07:00 PM
+-- Generation Time: Mar 24, 2021 at 01:32 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -49,26 +49,6 @@ INSERT INTO `account` (`Name`, `User_ID`, `Account_No`, `IFSC_Code`, `Bank_Name`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `emi`
---
-
-CREATE TABLE `emi` (
-  `Project_ID` varchar(30) NOT NULL,
-  `Borrow_Account_No` varchar(30) NOT NULL,
-  `EMI_Payed_Amount` int(11) NOT NULL,
-  `EMI_Required_Amount` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `emi`
---
-
-INSERT INTO `emi` (`Project_ID`, `Borrow_Account_No`, `EMI_Payed_Amount`, `EMI_Required_Amount`) VALUES
-('DBMS-1', '123456789', 9400, 100);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `enquiry`
 --
 
@@ -100,20 +80,11 @@ CREATE TABLE `pay` (
 --
 
 INSERT INTO `pay` (`Name`, `Project_ID`, `Region`, `Category`, `Lend_Account_No`, `Borrow_Account_No`, `Amount`) VALUES
-('Sudhanshu', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 5500),
-('Sudhanshu ', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 2000),
-('Sudhanshu ', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 2000);
+('Sudhanshu Jena', 'DBMS-1', 'Mumbai', 'Agriculture', '12345654321', '123456789', 5500);
 
 --
 -- Triggers `pay`
 --
-DELIMITER $$
-CREATE TRIGGER `insert_emi` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
-INSERT INTO emi
-SET Project_ID = NEW.Project_ID , Borrow_Account_No = NEW.Borrow_Account_No;
-END
-$$
-DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `panding` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
 UPDATE project
@@ -126,14 +97,6 @@ DELIMITER $$
 CREATE TRIGGER `update_amount` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
 UPDATE project
 SET Amount_Gathered = Amount_Gathered + NEW.Amount
-WHERE Project_ID = NEW.Project_ID;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `update_emi` AFTER INSERT ON `pay` FOR EACH ROW BEGIN
-UPDATE emi
-SET EMI_Required_Amount = EMI_Required_Amount + NEW.Amount
 WHERE Project_ID = NEW.Project_ID;
 END
 $$
@@ -166,7 +129,7 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`Name`, `Project_ID`, `User_ID`, `Category`, `Region`, `Start_Date`, `End_Date`, `Account_No`, `Amount_Required`, `Amount_Gathered`, `Amount_Pending`, `Loan_Pending`, `Description`) VALUES
-('DBMS Project', 'DBMS-1', 'TUS3F171852', 'Agriculture', 'Mumbai', '2021-03-23', '2021-03-31', '123456789', 20000, 9500, 10500, 'No', 'Put life in perspective with some short yet sage pieces of advice. These wise and beautiful words from your favorite positive thinkers will get you in the right mindset to tackle whatever obstacles li');
+('DBMS Project', 'DBMS-1', 'TUS3F171852', 'Agriculture', 'Mumbai', '2021-03-23', '2021-03-31', '123456789', 20000, 5000, 14500, 'No', 'Put life in perspective with some short yet sage pieces of advice. These wise and beautiful words from your favorite positive thinkers will get you in the right mindset to tackle whatever obstacles li');
 
 -- --------------------------------------------------------
 
@@ -190,23 +153,15 @@ CREATE TABLE `repay` (
 --
 
 INSERT INTO `repay` (`User_ID`, `Name`, `Project_ID`, `Lend_Account_No`, `Borrow_Account_No`, `EMI`, `EMI_Instalment_No`, `Amount`) VALUES
-('TUS3F171852', 'Sudhanshu', 'DBMS-1', '12345654321', '123456789', 'No', 'One Time Payment', 9400);
+('TUS3F171852', 'Sudhanshu Jena', 'DBMS-1', '12345654321', '123456789', '3 Month', '1st', 500);
 
 --
 -- Triggers `repay`
 --
 DELIMITER $$
-CREATE TRIGGER `update_emi1` AFTER INSERT ON `repay` FOR EACH ROW BEGIN
-UPDATE emi
-SET EMI_Payed_Amount = EMI_Payed_Amount + NEW.Amount
-WHERE Project_ID = NEW.Project_ID;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `update_emi2` AFTER INSERT ON `repay` FOR EACH ROW BEGIN
-UPDATE emi
-SET EMI_Required_Amount = EMI_Required_Amount - NEW.Amount
+CREATE TRIGGER `EMILone` AFTER INSERT ON `repay` FOR EACH ROW BEGIN
+UPDATE project
+SET Amount_Gathered = Amount_Gathered - NEW.Amount
 WHERE Project_ID = NEW.Project_ID;
 END
 $$

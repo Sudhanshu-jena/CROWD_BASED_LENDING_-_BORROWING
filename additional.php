@@ -249,7 +249,35 @@ mysqli_close($link);
                 }
               
           
-          
+                echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                <thead>
+                <tr>
+                
+                    <th >EMI:</th>
+
+                    <th>'.$row ["EMI"].'</th>
+                </tr>
+                </thead>';
+                echo '</table>';
+                echo '<table class="table" width="70%" border="2" cellpadding="5" cellspacing="5">
+                <thead>
+                <tr>
+                
+                    <th >EMI No:</th>
+
+                    <th>'.$row ["EMI_Instalment_No"].'</th>
+                </tr>
+                </thead>';
+                    
+                  $sql=  "SELECT * FROM `pay` AS p LEFT JOIN `Repay` AS rp ON p.cus_id=c1.cus_id WHERE `User_ID` = :User_ID "
+                     
+                
+                    
+                
+                
+                    
+                echo '</table>';
           
           
       ?>
+      
